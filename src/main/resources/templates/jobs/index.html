@@ -1,0 +1,36 @@
+
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+    <title>Job listings</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <a th:if="${isHrManager}" th:href="@{/jobs/create}" class="btn btn-success">Create New</a> <a th:if="${!isHrManager}" th:href="@{/login}" class="btn btn-success">Login</a>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col"> Title </th>
+                    <th scope="col"> Description </th>
+                    <th scope="col"> Number of People to Hire </th>
+                    <th scope="col"> Last Application Date </th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${jobs.empty}">
+                    <td colspan="5"> No Jobs Available </td>
+                </tr>
+                <tr th:each="job : ${jobs}">
+                    <td><span th:text="${job.title}"> Title </span></td>
+                    <td><span th:text="${job.description}"> Description </span></td>
+                    <td><span th:text="${job.numberOfPeopleToHire}"> Number of People to Hire </span></td>
+                    <td><span th:text="${#dates.format(job.lastApplicationDate, 'dd MMM yyyy')}"> Last Application Date </span></td>
+                    <td><a th:href="@{'/jobs/' + ${job.id}}" class="btn btn-info">Details</a>  <a th:if="${isHrManager}" th:href="@{'/applications/jobId=' + ${job.id}}" class="btn btn-info">Applications</a>  <a th:if="${isHrManager}" th:href="@{'/jobs/delete/' + ${job.id}}" class="btn btn-danger">Delete</a> </td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+    <title>TODO supply a title</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <a th:href="@{'/jobs/' + ${jobId}}" class="btn btn-success">Back to Job</a>  
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col"> Name </th>
+                    <th scope="col"> Email </th>
+                    <th scope="col"> Phone </th>
+                    <th scope="col"> Address </th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${applies.empty}">
+                    <td colspan="6"> No Applicatons Available </td>
+                </tr>
+                <tr th:each="apply : ${applies}">
+                    <td><span th:text="${apply.name}"> Name </span></td>
+                    <td><span th:text="${apply.email}"> Email </span></td>
+                    <td><span th:text="${apply.phone}"> Phone </span></td>
+                    <td><span th:text="${apply.address}"> Address </span></td>
+                    <td> <a th:href="@{'/applications/details/' + ${apply.id}}" class="btn btn-info">Details</a> </td>
+                </tr>
+            </tbody>
+        </table>  
+    </div>
+</th:block>
+</body>
+</html>

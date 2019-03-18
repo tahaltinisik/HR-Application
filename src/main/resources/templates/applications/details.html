@@ -1,0 +1,55 @@
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+    <title>TODO supply a title</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+                text-align: left;
+            }
+        </style>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <a th:href="@{'/applications/jobId=' + ${apply.jobId}}" class="btn btn-info">Back to List</a>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tbody>
+                    <table style="width:100%">
+                        <tr>
+                            <th>Name:</th>
+                            <td th:text="${apply.name}"> Name </td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td th:text="${apply.email}">Email</td>
+                        </tr>
+                        <tr>
+                            <th>Phone:</th>
+                            <td th:text="${apply.phone}"> Phone</td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td th:text="${apply.address}"> Address</td>
+                        </tr>
+                        <tr>
+                            <th>Thoughts on Job:</th>
+                            <td th:text="${apply.thoughtsOnJob}"> Thoughts on Job</td>
+                        </tr>
+                        <tr>
+                            <th>Resume</th>
+                            <td> <a th:href="@{'/applications/resume/' + ${apply.id}}" class="btn btn-info">See resume</a></td>
+                        </tr>
+                    </table>
+                </tbody>
+            </thead>
+        </table>
+    </div>
+    
+</th:block>
+</body>
+</html>

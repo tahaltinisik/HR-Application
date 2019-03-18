@@ -1,0 +1,79 @@
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/layout">
+<head>
+    <title>Apply to Job</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+                text-align: left;
+            }
+        </style>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <a th:href="@{/jobs}" class="btn btn-info">Back to List</a> <a th:if="${isHrManager}" th:href="@{'/applications/jobId=' + ${job.id}}" class="btn btn-info">Applications</a> <a th:if="${isHrManager}" th:href="@{'/jobs/delete/' + ${job.id}}" class="btn btn-danger">Delete</a>
+    
+     <div class="table-responsive">
+        </table> 
+         
+                             <table style="width:50%">
+                        <tr>
+                            <th>Title:</th>
+                            <td th:text="${job.title}"> Title </td>
+                        </tr>
+                        <tr>
+                            <th>Description:</th>
+                            <td th:text="${job.description}">Description</td>
+                        </tr>
+                        <tr>
+                            <th>Number of People to Hire:</th>
+                            <td th:text="${job.numberOfPeopleToHire}"> Number of People to Hire</td>
+                        </tr>
+                        <tr>
+                            <th>Last Application Date:</th>
+                            <td th:text="${#dates.format(job.lastApplicationDate, 'dd MMM yyyy')}"> Last Application Date</td>
+                        </tr>
+
+        </table>
+         
+    </div>
+    
+    <h2 style="background-color:green;color:white;" th:if="${!isHrManager}"><center><b>Application Form</b></center></h2>
+    <form th:if="${!isHrManager}" class="form-horizontal" action="#" th:action="@{/applications/create}" th:object="${apply}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{jobId}" th:value="${job.id}" />
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name"><b>Name:</b></label>
+                <div class="col-sm-10"><input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name"/></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email"><b>Email:</b></label>
+                <div class="col-sm-10"><input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Enter email"/></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="phone"><b>Phone:</b></label>
+                <div class="col-sm-10"><input type="text" th:field="*{phone}" class="form-control" id="phone" placeholder="Enter phone"/></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="address"><b>Address:</b></label>
+                <div class="col-sm-10"><input type="text" th:field="*{address}" class="form-control" id="address" placeholder="Enter address"/></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="thoughtsOnJob"><b>Thoughts on Job:</b></label>
+                <div class="col-sm-10"><input type="text" th:field="*{thoughtsOnJob}" class="form-control" id="thoughtsOnJob" placeholder="What is your thoughts on job?"/></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="file"><b>Resume:</b></label>
+                <div class="col-sm-10"><input type="file" name="file" accept=".pdf" class="form-control" id="file"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success">Apply!</button>
+                </div>
+            </div>
+    </form>
+</th:block>
+</body>
+</html>
